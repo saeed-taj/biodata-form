@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ismaili Volunteers Biodata Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form-container">
+    <header>
+      <img src="logo.png" alt="Logo" class="logo">
+      <h1>ISMAILI VOLUNTEERS</h1>
+      <h2>BIODATA FORM</h2>
+    </header>
+
+    <section class="instructions">
+      <p>1. Please write in capital letters or type</p>
+      <p>2. Please attach your CNIC copy</p>
+      <p>3. Please attach your recent passport size photograph</p>
+      <p>4. Please attach additional sheets where required</p>
+    </section>
+
+    <form id="biodataForm">
+      <div class="top-info">
+        <div class="row">
+          <label>Date:</label>
+          <input type="date" name="form_date" required>
+          <label>Applicant’s CNIC No:</label>
+          <input type="text" name="cnic" placeholder="12345-1234567-1" required>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>1. PERSONAL INFORMATION</h3>
+
+        <div class="row">
+          <label>Name: Mr / Ms / Mrs / Dr</label>
+          <input type="text" name="name" class="long-input" required>
+        </div>
+
+        <div class="row">
+          <label>Jamati Title (if any):</label>
+          <input type="text" name="title">
+          <label>Gender [M/F]:</label>
+          <input type="text" name="gender" class="short-input">
+          <label>Date of Birth:</label>
+          <input type="date" name="dob" class="short-input">
+        </div>
+
+        <div class="row">
+          <label>Marital Status:</label>
+          <input type="text" name="status" placeholder="Single / Married / Divorced / Widow">
+        </div>
+
+        <div class="row">
+          <label>Residential Address:</label>
+          <input type="text" name="address" class="long-input">
+        </div>
+
+        <div class="row">
+          <label>City / Village:</label>
+          <input type="text" name="city">
+          <label>Mobile:</label>
+          <input type="text" name="mobile">
+        </div>
+
+        <div class="row">
+          <label>Email Address:</label>
+          <input type="email" name="email">
+          <label>Area of Origin:</label>
+          <input type="text" name="area">
+        </div>
+
+        <div class="row">
+          <label>Jamatkhana:</label>
+          <input type="text" name="jamatkhana">
+          <label>Local Council:</label>
+          <input type="text" name="local">
+        </div>
+
+        <div class="row">
+          <label>Regional Council:</label>
+          <input type="text" name="regional">
+        </div>
+
+        <div class="row">
+          <label>Since this is a 2-year commitment, do you plan to relocate?</label>
+          <input type="text" name="relocate" placeholder="Yes / No">
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>2. EDUCATION</h3>
+        <div class="row">
+          <label>Secular Education:</label>
+          <input type="text" name="secular" placeholder="Post Graduate / Graduate / Intermediate / Matric / Others">
+        </div>
+
+        <p>Please give details of your last two key academic qualifications.</p>
+
+        <table class="education-table">
+          <tr>
+            <th>Year From</th>
+            <th>Year To</th>
+            <th>Name of Institution</th>
+            <th>Major Area of Study</th>
+            <th>Degree / Diploma</th>
+            <th>Country of Study</th>
+          </tr>
+          <tr>
+            <td><input type="text" name="edu1_from"></td>
+            <td><input type="text" name="edu1_to"></td>
+            <td><input type="text" name="edu1_institution"></td>
+            <td><input type="text" name="edu1_major"></td>
+            <td><input type="text" name="edu1_degree"></td>
+            <td><input type="text" name="edu1_country"></td>
+          </tr>
+          <tr>
+            <td><input type="text" name="edu2_from"></td>
+            <td><input type="text" name="edu2_to"></td>
+            <td><input type="text" name="edu2_institution"></td>
+            <td><input type="text" name="edu2_major"></td>
+            <td><input type="text" name="edu2_degree"></td>
+            <td><input type="text" name="edu2_country"></td>
+          </tr>
+        </table>
+
+        <div class="row">
+          <label>Religious Education:</label>
+          <input type="text" name="religious" placeholder="ARE / HRE / Matric">
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>3. OCCUPATION</h3>
+        <div class="row">
+          <label>Occupation:</label>
+          <input type="text" name="occupation" placeholder="Salaried / Self Employed / Retired / Homemaker / Student / Unemployed">
+        </div>
+
+        <p>3.1 Employment Information: Please give details of your current employment/business.</p>
+
+        <table class="employment-table">
+          <tr>
+            <th>Year From</th>
+            <th>Year To</th>
+            <th>Name of Organization</th>
+            <th>Designation</th>
+          </tr>
+          <tr>
+            <td><input type="text" name="emp1_from"></td>
+            <td><input type="text" name="emp1_to"></td>
+            <td><input type="text" name="emp1_org"></td>
+            <td><input type="text" name="emp1_designation"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>4. VOLUNTARY SERVICE</h3>
+        <p>(Mention latest service first)</p>
+
+        <table class="voluntary-table">
+          <tr>
+            <th>Year From</th>
+            <th>Year To</th>
+            <th>Name of Institution</th>
+            <th>Position</th>
+          </tr>
+          <tr>
+            <td><input type="text" name="vol1_from"></td>
+            <td><input type="text" name="vol1_to"></td>
+            <td><input type="text" name="vol1_institution"></td>
+            <td><input type="text" name="vol1_position"></td>
+          </tr>
+          <tr>
+            <td><input type="text" name="vol2_from"></td>
+            <td><input type="text" name="vol2_to"></td>
+            <td><input type="text" name="vol2_institution"></td>
+            <td><input type="text" name="vol2_position"></td>
+          </tr>
+          <tr>
+            <td><input type="text" name="vol3_from"></td>
+            <td><input type="text" name="vol3_to"></td>
+            <td><input type="text" name="vol3_institution"></td>
+            <td><input type="text" name="vol3_position"></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="signature-section">
+        <div class="row">
+          <label>Date (again for applicant):</label>
+          <input type="date" name="date">
+        </div>
+
+        <div class="row">
+          <label>Signature of Applicant:</label>
+          <input type="text" name="signature" placeholder="Type your full name">
+        </div>
+      </div>
+
+      <div class="submit-container">
+        <button type="submit">Submit Form</button>
+      </div>
+    </form>
+  </div>
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -3,15 +3,18 @@ body {
   background: #f2f2f2;
   display: flex;
   justify-content: center;
-  padding: 100px;
+  padding: 50px;
+  margin: 0;
 }
 
 .form-container {
   background: white;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   border: 1px solid #000;
-  padding: 30px;
+  padding: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
 header {
@@ -22,8 +25,8 @@ header {
 }
 
 .logo {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
   margin-bottom: 10px;
 }
@@ -45,11 +48,12 @@ h2 {
   padding: 10px;
   margin-bottom: 15px;
   font-size: 13px;
+  background: #fafafa;
 }
 
 .section {
   border: 1px solid #000;
-  padding: 20px;
+  padding: 15px;
   margin-bottom: 15px;
 }
 
@@ -59,6 +63,7 @@ h2 {
   border-bottom: 1px solid #000;
   font-size: 14px;
   text-transform: uppercase;
+  margin-top: 0;
 }
 
 .row {
@@ -74,11 +79,15 @@ label {
   min-width: 120px;
 }
 
-input[type="text"], input[type="email"], input[type="date"] {
+input[type="text"],
+input[type="email"],
+input[type="date"] {
   flex: 1;
   border: 1px solid #000;
-  padding: 3px;
+  padding: 5px;
   font-size: 13px;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 
 .long-input {
@@ -94,6 +103,8 @@ table {
   border-collapse: collapse;
   margin-top: 5px;
   font-size: 13px;
+  overflow-x: auto;
+  display: block;
 }
 
 th, td {
@@ -116,15 +127,15 @@ th, td {
 button {
   background-color: #214ee2;
   color: white;
-  padding: 8px 20px;
+  padding: 10px 24px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: #0d3bb0;
 }
 
 /* PRINT SETTINGS */
@@ -141,5 +152,88 @@ button:hover {
   }
   button {
     display: none;
+  }
+}
+
+/* 📱 MOBILE + TABLET RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .form-container {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 18px;
+  }
+
+  header h2 {
+    font-size: 14px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  label {
+    min-width: 0;
+    width: 100%;
+    margin-bottom: 3px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"] {
+    width: 100%;
+  }
+
+  table {
+    font-size: 12px;
+    display: block;
+    overflow-x: auto;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  .instructions {
+    font-size: 12px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  h1 {
+    font-size: 16px;
+  }
+
+  h2 {
+    font-size: 14px;
+  }
+
+  .section h3 {
+    font-size: 13px;
+  }
+
+  input, label {
+    font-size: 12px;
+  }
+
+  table {
+    font-size: 11px;
   }
 }

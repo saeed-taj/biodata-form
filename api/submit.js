@@ -1,9 +1,17 @@
 import nodemailer from "nodemailer";
 import { PDFDocument, StandardFonts } from "pdf-lib";
-import fs from "fs";
 
-// Load your template PDF once as base64
-const templatePDFBase64 = fs.readFileSync("template.pdf").toString("base64");
+// Minimal PDF template in memory
+const createTemplatePDF = async () => {
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([595, 842]); // A4 size
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+  page.drawText("Biodata Form", { x: 50, y: 800, size: 20, font });
+  page.drawText("Fill the details below:", { x: 50, y: 780, size: 12, font });
+
+  return pdfDoc;
+};
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
@@ -11,8 +19,7 @@ export default async function handler(req, res) {
   const data = req.body;
 
   try {
-    // Load PDF from base64
-    const pdfDoc = await PDFDocument.load(Buffer.from(templatePDFBase64, "base64"));
+    const pdfDoc = await createTemplatePDF();
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
     const { height } = firstPage.getSize();
@@ -58,3 +65,4 @@ export default async function handler(req, res) {
     return res.status(500).send("Error sending PDF email");
   }
 }
+

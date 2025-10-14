@@ -1,31 +1,26 @@
-import express from "express";
 import nodemailer from "nodemailer";
-import cors from "cors";
-import bodyParser from "body-parser";
-import fs from "fs";
 import { PDFDocument, StandardFonts } from "pdf-lib";
+import fs from "fs";
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+// Load your template PDF once as base64
+const templatePDFBase64 = fs.readFileSync("template.pdf").toString("base64");
 
-app.post("/submit", async (req, res) => {
+export default async function handler(req, res) {
+  if (req.method !== "POST") return res.status(405).send("Method Not Allowed");
+
   const data = req.body;
 
   try {
-    // Load your template biodata PDF
-    const formBytes = fs.readFileSync("template.pdf");
-    const pdfDoc = await PDFDocument.load(formBytes);
+    // Load PDF from base64
+    const pdfDoc = await PDFDocument.load(Buffer.from(templatePDFBase64, "base64"));
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
     const { height } = firstPage.getSize();
-
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
-    // --- Draw Text on the PDF (you can adjust X,Y positions later) ---
+    // Fill PDF fields
     firstPage.drawText(`Form Date: ${data.form_date || ""}`, { x: 50, y: height - 120, size: 12, font });
     firstPage.drawText(`CNIC: ${data.cnic || ""}`, { x: 300, y: height - 120, size: 12, font });
-
     firstPage.drawText(`Name: ${data.name || ""}`, { x: 50, y: height - 150, size: 12, font });
     firstPage.drawText(`Email: ${data.email || ""}`, { x: 50, y: height - 170, size: 12, font });
     firstPage.drawText(`Mobile: ${data.mobile || ""}`, { x: 50, y: height - 190, size: 12, font });
@@ -33,44 +28,33 @@ app.post("/submit", async (req, res) => {
     firstPage.drawText(`Occupation: ${data.occupation || ""}`, { x: 50, y: height - 230, size: 12, font });
     firstPage.drawText(`Signature: ${data.signature || ""}`, { x: 50, y: height - 250, size: 12, font });
 
-    // --- Save filled PDF ---
-    const filledPdfBytes = await pdfDoc.save();
-    const outputPath = "filled_biodata.pdf";
-    fs.writeFileSync(outputPath, filledPdfBytes);
+    const pdfBytes = await pdfDoc.save();
 
-    // --- Send Email ---
-   const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL_USER,  // Gmail username from Render
-    pass: process.env.GMAIL_PASS,  // Gmail app password from Render
-  },
-});
+    // Send Email
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
 
-    const mailOptions = {
-      from: "saeedtaj00@gmail.com",
+    await transporter.sendMail({
+      from: process.env.GMAIL_USER,
       to: "gulshan@akcpk.org, zulfikar.roomi@akcpk.org, vishalbaig6@gmail.com",
       subject: "New Filled Biodata Form",
       text: `New biodata form has been submitted by ${data.name}. CNIC: ${data.cnic}`,
       attachments: [
         {
           filename: "biodata_form.pdf",
-          path: outputPath,
+          content: pdfBytes,
         },
       ],
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
-    res.status(200).send("Form submitted and emailed successfully!");
-
-    // --- Clean up ---
-    fs.unlinkSync(outputPath);
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Error sending PDF email");
+    return res.status(200).send("Form submitted and emailed successfully!");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Error sending PDF email");
   }
-});
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}

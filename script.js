@@ -3,7 +3,7 @@ document.getElementById("biodataForm").addEventListener("submit", async (e) => {
 
   const formData = Object.fromEntries(new FormData(e.target).entries());
 
-  const res = await fetch("http://localhost:5000/submit", {
+  const res = await fetch("https://biodata-form-production.up.railway.app/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),

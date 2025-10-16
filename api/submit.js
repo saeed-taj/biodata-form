@@ -84,7 +84,7 @@ export default async function handler(req, res) {
 
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
-      to: "gulshan@akcpk.org, zulfikar.roomi@akcpk.org, vishalbaig6@gmail.com",
+      to: "gulshan@akcpk.org, zulfikar.roomi@akcpk.org",
       subject: "New Filled Biodata Form",
       text: `New biodata form has been submitted by ${data.name}. CNIC: ${data.cnic}`,
       attachments: [
